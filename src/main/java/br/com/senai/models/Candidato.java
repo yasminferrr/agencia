@@ -6,22 +6,25 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.senai.enuns.Genero;
+import lombok.Getter;
+import lombok.Setter;
+
+@Getter
+@Setter
 
 public class Candidato {
-    public String nomeCompleto;
-    public LocalDate dataNascimento;
-    public String cpf;
-    public String email;
-    public Genero genero;
-    public String naturalidade;
-    public String nacionalidade;
-    public Endereco endereco;
-    public List<Escolaridade> escolaridades = new ArrayList<>();
-    public String calcularIdade;
+    private String nomeCompleto;
+    private LocalDate dataNascimento;
+    private String cpf;
+    private String email;
+    private Genero genero;
+    private String naturalidade;
+    private String nacionalidade;
+    private Endereco endereco;
+    private List<Escolaridade> escolaridades = new ArrayList<>();
+    private String calcularIdade;
 
-    /**
-     * @return
-     */
+    
     public int calcularIdade() {
         return Period.between(this.dataNascimento, LocalDate.now()).getYears();
      }

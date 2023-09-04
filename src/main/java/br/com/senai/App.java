@@ -1,71 +1,63 @@
 package br.com.senai;
 
 import java.time.LocalDate;
-import java.time.Period;
 import java.util.Arrays;
 
-import br.com.senai.enuns.Estado;
 import br.com.senai.enuns.Genero;
 import br.com.senai.models.Candidato;
-import br.com.senai.models.Endereco;
-import br.com.senai.models.Escolaridade;
+import br.com.senai.models.Cliente;
+import br.com.senai.models.Vaga;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 public class App 
 {
-    /**
-     * @param args
-     */
-    public static void main( String[] args )
-    {
-        Endereco endereco = new Endereco();
-        endereco.cep = "64984328";
-        endereco.logradouro = "Rua Porto, 3555";
-        endereco.cidade = "Teresina";
-        endereco.estado = Estado.PI;
+        /**
+         * @param args
+         */
+        public static void main(String[] args){
 
-        Candidato yasmin = new Candidato();
-        yasmin.nomeCompleto = "Yasmin Ferreira de Oliveira";
-        yasmin.dataNascimento = LocalDate.of(2000, 07, 18);
-        yasmin.email = "yasminferreira@gmail.com";
-        yasmin.genero = Genero.F;
-        yasmin.naturalidade = Estado.PI.toString();
-        yasmin.nacionalidade = "Brasil";
-        yasmin.endereco = endereco;
+            //Instanciando uma vaga
+            Vaga ti = new Vaga();
+            ti.setTitulo("Suporte técnico");
+            ti.setNumeroDeVaga(2);
+            ti.setDescricao("Deverá ter conhecimento em montagem e manutenção de computadores");
+            ti.setSalario(1900.0);
+            ti.setInicioPublicacao(LocalDate.of(2023, 8, 20));
+            ti.setFimPublicacao(LocalDate.of(2023, 9, 4));
 
-        Candidato mirelle = new Candidato();
-        mirelle.nomeCompleto = "Mirelle Carvalho";
-        mirelle.dataNascimento = LocalDate.of(1980, 05, 10);
+            //Instanciando um cliente 
+            Cliente senai = new Cliente();
+            senai.setNome("Senai");
+            senai.setResponsavel("Araidna");
+            senai.setCpfCnpj("00.003.556/0003-88");
 
-        //Escolaridade e1 = new Escolaridade();
-        //e1.nomeCurso = "Sistema para Internet";
-        //e1.nomeInstituicao = "Senai";
-        //e1.dataInicio = LocalDate.of(2022, 10, 01);
-        //e1.dataFim = LocalDate.of(2023, 06, 10);
+            ti.setCliente(senai); //Associando o cliente a vaga
 
-        //Escolaridade e2 = new Escolaridade();
-        //e2.nomeCurso = "Engenharia Civil";
-        //e2.nomeInstituicao = "IFPI";
-        //e2.dataInicio = LocalDate.of(2022, 02, 01);
-        //e2.dataFim = LocalDate.of(2023, 07, 10);
+            //Instanciando 02 candidatos
+            Candidato joao = new Candidato();
+            joao.setNomeCompleto("João Henrique");
+            joao.setDataNascimento(LocalDate.of(1993, 10, 15));
+            joao.setGenero(Genero.M);
 
-        //List<Escolaridade> list = new ArrayList<>();
-        //list.add(e1);
-        //list.add(e2);
+            Candidato maria = new Candidato();
+            maria.setNomeCompleto("Maria Helena");
+            maria.setDataNascimento(LocalDate.of(1992, 12, 18));
+            maria.setGenero(Genero.F);
 
-        //yasmin.escolaridades = Arrays.asList(e1,e2);
+            ti.getCandidatos().addAll(Arrays.asList(joao, maria));
 
-        System.out.println("Nome Completo: " +yasmin.nomeCompleto);
-        System.out.println("Idade: "+yasmin.calcularIdade());
-        System.out.println("É maior de idade: "+yasmin.eMaiorDeIdade());
-        System.out.println("***************************************");
-        System.out.println("Nome Completo: " +mirelle.nomeCompleto);
-        System.out.println("Idade: "+mirelle.calcularIdade());
-        System.out.println("É maior de idade: "+mirelle.eMaiorDeIdade());
+            System.out.println("Nome da vaga: "+ti.getTitulo()+
+            "\nSalário: "+ti.getSalario()+
+            "\nInício: "+ti.getInicioPublicacao()+
+            "\nEntregar até: "+ti.getFimPublicacao()+
+            "\nEmpresa: "+ti.getCliente().getNome()
+            );
 
-        //System.out.println("Endereço: " +yasmin.endereco.logradouro);
-
-        for (Escolaridade escolaridade : yasmin.escolaridades) {
-            System.out.println(escolaridade.nomeCurso+" - "+escolaridade.nomeInstituicao);
+            for (Candidato candidato: ti.getCandidatos()) {
+                System.out.println("Nome: " +candidato.getNomeCompleto());
+            }
         }
-    }
 }
